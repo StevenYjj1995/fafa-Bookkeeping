@@ -6,6 +6,18 @@
 </template>
 
 <style lang="scss">
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body{
+  line-height: 1.5em;
+}
+a{
+  text-decoration: none;
+  color:inherit;
+}
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -13,11 +25,7 @@
   text-align: center;
   color: #2c3e50;
 }
-*{
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
+
 #nav {
 
   padding: 30px;
