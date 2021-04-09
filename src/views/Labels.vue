@@ -1,6 +1,6 @@
 <template>
-  <div>Labels.vue
-    <Nav/>
+  <div>
+    <Layout><p>Labels.vue</p></Layout>
   </div>
 </template>
 
