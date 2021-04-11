@@ -18,7 +18,6 @@
 </template>
 
 <script lang="ts">
-
 // eslint-disable-next-line no-undef
 let importAll = (requireContext: __WebpackModuleApi.RequireContext) => requireContext.keys().forEach(requireContext);
 try {
@@ -32,6 +31,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import "~@/assets/styles/helper.scss";
 nav{
   display: flex;
   flex-direction: row;
@@ -50,7 +50,7 @@ nav{
     }
   }
   > .item.selected{
-    color:red;
+    color:$color-hightlight
   }
 }
 
