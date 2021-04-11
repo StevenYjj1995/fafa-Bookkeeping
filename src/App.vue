@@ -18,18 +18,6 @@ body{
   color: #333;
   line-height: 1.5em;
   font-family: $font-hei;
+  font-size: 16px;
 }
-//#nav {
-//
-//  padding: 30px;
-//
-//  a {
-//    font-weight: bold;
-//    color: #2c3e50;
-//
-//    &.router-link-exact-active {
-//      color: #42b983;
-//    }
-//  }
-//}
 </style>
