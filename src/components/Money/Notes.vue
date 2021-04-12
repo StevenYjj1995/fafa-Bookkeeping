@@ -1,10 +1,8 @@
 <template>
   <div>
     <label class="notes">
-      {{value}}
       <span class="name">备注</span>
-      <input type="text" placeholder="请在这里输入备注" :value="value"
-             @input="onInput">
+      <input type="text" placeholder="请在这里输入备注" v-model="value">
     </label>
   </div>
 </template>
