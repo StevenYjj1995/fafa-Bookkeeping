@@ -1,6 +1,6 @@
 <template>
   <Layout class-prefix="layout">
-<!--    {{ recordList }}-->
+    <!--    {{ recordList }}-->
     <NumberPad @update:value="onUpdateAmount" @submit="saveRecord"/>
     <Types :value.sync="record.type"/>
     <Notes @update:value="onUpdateNotes"/>
@@ -14,26 +14,27 @@ import Types from '@/components/Money/Types.vue';
 import Notes from '@/components/Money/Notes.vue';
 import Tags from '@/components/Money/Tags.vue';
 import {Component, Watch} from 'vue-property-decorator';
-import {model} from '@/model';
+import {recordListModel} from '@/models/recordListModel';
+import {tagListModel} from '@/models/tagListModel';
 //在ts中用js，需要用require导入
 // const {model} =require('@/model.ts')
 // const recordList:Record[] = model.fetch()
 
-const recordList = model.fetch()
+const recordList = recordListModel.fetch();
+const tagLIst = tagListModel.fetch();
 
-window.localStorage.setItem('version','0.0.1 ')
-
+window.localStorage.setItem('version', '0.0.1 ');
 
 
 @Component({
   components: {Tags, Notes, Types, NumberPad},
 })
 export default class Money extends Vue {
-  tags = ['衣', '食', '住', '行', '彩票'];
+  tags = tagLIst;
   // eslint-disable-next-line no-undef
-  recordList: RecordItem[] = recordList
+  recordList: RecordItem[] = recordList;
   // eslint-disable-next-line no-undef
-  record: RecordItem[] = {
+  record: RecordItem = {
     tags: [], notes: '', type: '-', amount: 0
   };
 
@@ -51,14 +52,14 @@ export default class Money extends Vue {
 
   saveRecord(): void {
     // eslint-disable-next-line no-undef
-    const record2: RecordItem = model.clone(this.record);
+    const record2: RecordItem = recordListModel.clone(this.record);
     record2.createdAt = new Date();
     this.recordList.push(record2);
   }
 
   @Watch('recordList')
   onRecordListChange(): void {
-    model.save(this.recordList)
+    recordListModel.save(this.recordList);
   }
 
 }
