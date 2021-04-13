@@ -23,7 +23,6 @@ import {tagListModel} from '@/models/tagListModel';
 // const recordList:Record[] = model.fetch()
 
 const recordList = recordListModel.fetch();
-const tagLIst = tagListModel.fetch();
 
 window.localStorage.setItem('version', '0.0.1 ');
 
@@ -32,7 +31,7 @@ window.localStorage.setItem('version', '0.0.1 ');
   components: {FormItem, Tags, Notes: FormItem, Types, NumberPad},
 })
 export default class Money extends Vue {
-  tags = tagLIst;
+  tags = window.tagList;
   // eslint-disable-next-line no-undef
   recordList: RecordItem[] = recordList;
   // eslint-disable-next-line no-undef
