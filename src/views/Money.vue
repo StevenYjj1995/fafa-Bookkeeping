@@ -4,7 +4,7 @@
     <NumberPad @update:value="onUpdateAmount" @submit="saveRecord"/>
     <Types :value.sync="record.type"/>
     <div class="notes">
-    <FormItem @update:value="onUpdateNotes" field-name="备注" placeholder="在这里输入备注"/>
+      <FormItem @update:value="onUpdateNotes" field-name="备注" placeholder="在这里输入备注"/>
     </div>
     <Tags :data-source.sync="tags" @update:value="onUpdateTags"/>
   </Layout>
@@ -17,7 +17,6 @@ import FormItem from '@/components/Money/FormItem.vue';
 import Tags from '@/components/Money/Tags.vue';
 import {Component, Watch} from 'vue-property-decorator';
 import {recordListModel} from '@/models/recordListModel';
-import {tagListModel} from '@/models/tagListModel';
 //在ts中用js，需要用require导入
 // const {model} =require('@/model.ts')
 // const recordList:Record[] = model.fetch()
@@ -52,7 +51,7 @@ export default class Money extends Vue {
   }
 
   saveRecord(): void {
-    recordListModel.create(this.record)
+    recordListModel.create(this.record);
   }
 
   @Watch('recordList')
@@ -67,7 +66,8 @@ export default class Money extends Vue {
   display: flex;
   flex-direction: column-reverse;
 }
-.notes{
+
+.notes {
   padding: 12px 0;
 }
 </style>

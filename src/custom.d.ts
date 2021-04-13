@@ -19,7 +19,10 @@ type TagListModel = {
   remove: (id: string) => boolean
 }
 
-interface Window{
-  tagList:Tag[]
-  createTag:(name:string)=>void
+interface Window {
+  tagList: Tag[]
+  createTag: (name: string) => void
+  removeTag: (id: string) => boolean
+  updateTag: (id: string, name: string) => 'success' | 'not_found' | 'duplicated' //等价于TagListModel['update']
+  findTag: (id: string) => Tag | undefined
 }
