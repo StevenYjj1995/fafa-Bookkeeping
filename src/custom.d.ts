@@ -19,12 +19,6 @@ type TagListModel = {
   remove: (id: string) => boolean
 }
 
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 interface Window {
-  tagList: Tag[]
-  createTag: (name: string) => void
-  removeTag: (id: string) => boolean
-  updateTag: (id: string, name: string) => 'success' | 'not_found' | 'duplicated' //等价于TagListModel['update']
-  findTag: (id: string) => Tag | undefined
-  recordList:RecordItem[]
-  createRecord:(record:RecordItem)=> void
 }
