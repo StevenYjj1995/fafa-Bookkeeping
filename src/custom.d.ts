@@ -5,7 +5,6 @@ type RecordItem = {
   amount: number //数据类型
   createdAt?: Date //类/构造函数
 }
-
 type Tag = {
   id: string;
   name: string;
@@ -18,7 +17,6 @@ type TagListModel = {
   save: () => void
   remove: (id: string) => boolean
 }
-
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
 interface Window {
 }
