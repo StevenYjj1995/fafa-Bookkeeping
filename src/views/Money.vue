@@ -23,13 +23,11 @@ import Button from '@/components/Button.vue';
 window.localStorage.setItem('version', '0.0.1 ');
 @Component({
   components: {Button, FormItem, Tags, Notes: FormItem, Types, NumberPad},
-  computed:{
-    recordList(){
-      return this.$store.state.recordList;
-    }
-  }
 })
 export default class Money extends Vue {
+  get recordList(){
+    return this.$store.state.recordList;
+  }
 
   // eslint-disable-next-line no-undef
   record: RecordItem = {
