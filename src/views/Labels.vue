@@ -30,13 +30,7 @@ export default class Labels extends Vue {
   createTag(): void {
     const name = window.prompt('请输入标签名');
     if (name) {
-      const message = tagListModel.create(name);
-      if (message === 'duplicated') {
-        window.alert('标签名重复，请重新输入');
-      } else if (message === 'success') {
-        window.alert('创建标签成功');
-      }
-
+      window.createTag(name);
     }
 
   }
@@ -49,6 +43,8 @@ export default class Labels extends Vue {
   background: white;
   font-size: 16px;
   padding-left: 16px;
+  max-height: 72vh;
+  overflow-y: auto;
 
   > .tag {
     min-height: 44px;
