@@ -76,6 +76,7 @@ const store = new Vuex.Store({
       if (index >= 0) {
         state.tagList.splice(index, 1);
         store.commit('saveTags');
+        window.alert('删除标签成功')
         router.back();
       } else {
         window.alert('删除失败');
