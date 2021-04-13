@@ -25,4 +25,6 @@ interface Window {
   removeTag: (id: string) => boolean
   updateTag: (id: string, name: string) => 'success' | 'not_found' | 'duplicated' //等价于TagListModel['update']
   findTag: (id: string) => Tag | undefined
+  recordList:RecordItem[]
+  createRecord:(record:RecordItem)=> void
 }
