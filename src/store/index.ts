@@ -3,7 +3,6 @@ import Vuex from 'vuex';
 import clone from '@/lib/clone';
 import createId from '@/lib/createId';
 import router from '@/router';
-
 Vue.use(Vuex);
 const store = new Vuex.Store({
   state: {

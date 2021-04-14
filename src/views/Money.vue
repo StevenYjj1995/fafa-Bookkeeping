@@ -30,7 +30,6 @@ export default class Money extends Vue {
   get recordList(){
     return this.$store.state.recordList;
   }
-
   // eslint-disable-next-line no-undef
   record: RecordItem = {
     tags: [], notes: '', type: '-', amount: 0
@@ -38,15 +37,12 @@ export default class Money extends Vue {
   created(){
     this.$store.commit('fetchRecords')
   }
-
   onUpdateNotes(value: string): void {
     this.record.notes = value;
   }
-
   onUpdateAmount(value: string): void {
     this.record.amount = parseFloat(value);
   }
-
   saveRecord(): void {
     this.$store.commit('createRecord',this.record);
   }
