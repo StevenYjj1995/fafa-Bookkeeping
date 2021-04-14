@@ -1,9 +1,9 @@
 <template>
   <Layout>
     <Tabs :data-source="recordTypeList" :value.sync="type" class-prefix="type"/>
-    <ol>
+    <ol v-if="groupedList.length>0">
       <li v-for="(group,index) in groupedList" :key="index">
-        <h3 class="title">{{ beautify(group.title) }}<span>￥{{group.total}}</span></h3>
+        <h3 class="title">{{ beautify(group.title) }}<span>￥{{ group.total }}</span></h3>
         <ol class="record">
           <li v-for="item in group.items" :key="item.id">
             <span>{{ tagString(item.tags) }}</span>
@@ -13,6 +13,9 @@
         </ol>
       </li>
     </ol>
+    <div v-else class="noResult">
+      目前没有相关记录
+    </div>
   </Layout>
 </template>
 
@@ -46,7 +49,7 @@ export default class Statistics extends Vue {
 
   // eslint-disable-next-line no-undef
   tagString(tags: Tag[]) {
-    return tags.length === 0 ? '无' : tags.join(',');
+    return tags.length === 0 ? '无' : tags.map(t=>t.name).join('，');
   }
 
   get recordList() {
@@ -56,8 +59,11 @@ export default class Statistics extends Vue {
 
   get groupedList() {
     const {recordList} = this;
-    if (recordList.length === 0) {return [];}
-    const newList = clone(recordList).filter(r => r.type === this.type).sort((a, b) => dayjs(b.createdAt).valueOf() - dayjs(a.createdAt).valueOf());
+
+    const newList = clone(recordList)
+        .filter(r => r.type === this.type)
+        .sort((a, b) => dayjs(b.createdAt).valueOf() - dayjs(a.createdAt).valueOf());
+    if (newList.length === 0) {return [];}
     // eslint-disable-next-line no-undef
     type Result = { title: string, total?: number, items: RecordItem[] }[]
     const result: Result = [{title: dayjs(newList[0].createdAt).format('YYYY-MM-DD'), items: [newList[0]]}];
@@ -71,7 +77,7 @@ export default class Statistics extends Vue {
       }
     }
     result.map(group => {
-      group.total = group.items.reduce((sum,item)=>sum+item.amount,0);
+      group.total = group.items.reduce((sum, item) => sum + item.amount, 0);
     });
     return result;
   }
@@ -87,6 +93,10 @@ export default class Statistics extends Vue {
 </script>
 
 <style lang="scss" scoped>
+.noResult{
+  padding: 16px;
+  text-align: center;
+}
 %item {
   padding: 8px 16px;
   line-height: 24px;

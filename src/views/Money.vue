@@ -4,9 +4,9 @@
     <Tabs :data-source="recordTypeList"
           :value.sync="record.type"/>
     <div class="notes">
-      <FormItem @update:value="onUpdateNotes" field-name="备注" placeholder="在这里输入备注"/>
+      <FormItem field-name="备注" placeholder="在这里输入备注" :value.sync="record.notes"/>
     </div>
-    <Tags/>
+    <Tags @update:value="record.tag = $event"/>
   </Layout>
 </template>
 <script lang="ts">
@@ -26,25 +26,38 @@ window.localStorage.setItem('version', '0.0.1 ');
   components: {Tabs, Button, FormItem, Tags, Notes: FormItem, NumberPad},
 })
 export default class Money extends Vue {
-  recordTypeList = recordTypeList
-  get recordList(){
+  recordTypeList = recordTypeList;
+
+  get recordList() {
     return this.$store.state.recordList;
   }
+
   // eslint-disable-next-line no-undef
   record: RecordItem = {
     tags: [], notes: '', type: '-', amount: 0
   };
-  created(){
-    this.$store.commit('fetchRecords')
+
+  created() {
+    this.$store.commit('fetchRecords');
   }
+
   onUpdateNotes(value: string): void {
     this.record.notes = value;
   }
+
   onUpdateAmount(value: string): void {
     this.record.amount = parseFloat(value);
   }
+
   saveRecord(): void {
-    this.$store.commit('createRecord',this.record);
+    if (this.record.tags.length === 0 || !this.record.tags) {
+      return window.alert('请至少选择一个标签');
+    }
+    this.$store.commit('createRecord', this.record);
+    if (this.$store.state.createRecordError === null) {
+      window.alert('已保存');
+      this.record.notes = '';
+    }
   }
 }
 </script>

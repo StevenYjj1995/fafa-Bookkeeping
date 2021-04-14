@@ -1,5 +1,6 @@
 type RootState = {
   recordList: RecordItem[],
+  createRecordListError: Error | null,
   tagList: Tag[],
   currentTag?: Tag
 }
@@ -23,6 +24,7 @@ type TagListModel = {
   save: () => void
   remove: (id: string) => boolean
 }
+
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
 interface Window {
 }
