@@ -24,9 +24,10 @@ import {mixins} from 'vue-class-component';
   components: {Button},
 })
 export default class Labels extends mixins(TagHelper) {
-  get tags(){
+  get tags() {
     return this.$store.state.tagList;
   }
+
   beforeCreate() {
     this.$store.commit('fetchTags');
   }
@@ -36,6 +37,8 @@ export default class Labels extends mixins(TagHelper) {
 </script>
 
 <style lang="scss" scoped>
+@import "~@/assets/styles/helper.scss";
+
 .tags {
   background: white;
   font-size: 16px;
@@ -63,14 +66,22 @@ export default class Labels extends mixins(TagHelper) {
     border-bottom: none;
   }
 }
-
+.createTag-wrapper{
+  ::v-deep {
+    .button {
+      background: $color-highlight;
+    }
+  }
+}
 .createTag {
   background: #767676;
-  color: white;
+  color: #333333;
   border-radius: 4px;
   border: none;
   height: 40px;
   padding: 0 16px;
+
+
 
   &-wrapper {
     text-align: center;
