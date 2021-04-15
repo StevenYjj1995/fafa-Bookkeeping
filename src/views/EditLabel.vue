@@ -95,7 +95,6 @@ export default class EditLabel extends Vue {
   ::v-deep{
     .button {
       background: red;
-
     }
   }
 }
