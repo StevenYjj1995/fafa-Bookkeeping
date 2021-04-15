@@ -17,13 +17,11 @@ import {Component, Prop, Watch} from 'vue-property-decorator';
 export default class FormItem extends Vue {
   @Prop({default: ''}) readonly value!: string;
   @Prop({required: true}) fieldName!: string;
-  @Prop() placeholder?: string;
+  @Prop(String) placeholder?: string;
 
   onValueChanged(value: string): void {
     this.$emit('update:value', value);
   }
-
-
 }
 </script>
 

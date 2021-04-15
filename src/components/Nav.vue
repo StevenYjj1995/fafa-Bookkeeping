@@ -32,26 +32,34 @@ export default {
 
 <style lang="scss" scoped>
 @import "~@/assets/styles/helper.scss";
-nav{
+
+nav {
   @extend %outerShadow;
   @extend %innerShadow;
   display: flex;
   flex-direction: row;
   font-size: 12px;
-  > .item{
+
+  > .item {
     padding: 2px 0;
-    width:33.33333%;
-    display:flex;
+    width: 33.33333%;
+    display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    .icon{
+    color: rgb(121, 121, 121);
+
+    .icon {
+      padding-top: 5px;
       width: 32px;
       height: 32px;
     }
   }
-  > .item.selected{
-    color:$color-highlight
+
+  > .item.selected {
+    color: black;
+    background-color: $color-highlight;
+
   }
 }
 

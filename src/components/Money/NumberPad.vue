@@ -1,11 +1,13 @@
 <template>
   <div class="numberPad">
-    <div class="output">{{ output || '&nbsp;' }}</div>
+    <div class="output">{{ output }}</div>
     <div class="buttons">
       <button @click="inputContent">1</button>
       <button @click="inputContent">2</button>
       <button @click="inputContent">3</button>
-      <button @click="remove">删除</button>
+      <button @click="remove">
+        <Icon name="backspace"/>
+      </button>
       <button @click="inputContent">4</button>
       <button @click="inputContent">5</button>
       <button @click="inputContent">6</button>
@@ -15,18 +17,26 @@
       <button @click="inputContent">9</button>
       <button class="ok" @click="ok">OK</button>
       <button class="zero" @click="inputContent">0</button>
-      <button @click="inputContent">.</button>
+      <button class="point" @click="inputContent">.</button>
     </div>
   </div>
 </template>
 
 <script lang="ts">
 import Vue from 'vue';
-import {Component} from 'vue-property-decorator';
+import {Component, Prop, Watch} from 'vue-property-decorator';
 
 @Component
 export default class NumberPad extends Vue {
-  output = '0';
+  @Prop(Number) value!: number;
+
+
+  @Watch('value')
+  onValueChanged(value: number): void {
+    this.output = value.toString();
+  }
+
+  output = this.value.toString();
 
   inputContent(event: MouseEvent): void {
     const button = (event.target as HTMLButtonElement);
@@ -60,7 +70,7 @@ export default class NumberPad extends Vue {
   ok(): void {
     this.$emit('update:value', parseFloat(this.output));
     this.$emit('submit', parseFloat(this.output));
-    this.output = '0'
+    this.output = this.value.toString();
   }
 }
 </script>
@@ -80,6 +90,12 @@ export default class NumberPad extends Vue {
     padding-right: 16px;
   }
 
+  .icon {
+    width: 24px;
+    height: 24px;
+    margin-top: 3px;
+  }
+
   .buttons {
     @extend %clearFix;
 
@@ -87,7 +103,8 @@ export default class NumberPad extends Vue {
       width: 25%;
       height: 64px;
       float: left;
-      background: transparent;
+      background: rgb(242, 242, 242);
+      position: relative;
       border: none;
 
       &.ok {
@@ -99,35 +116,32 @@ export default class NumberPad extends Vue {
         width: 25*2%;
       }
 
-      &:nth-child(1) {
-        background: #f2f2f2;
+      &.point {
+        border-bottom: 1px solid rgb(242, 242, 242);
       }
 
-      $bg: #f2f2f2;
-
-      &:nth-child(2), &:nth-child(5) {
-        background: darken($bg, 4%)
-      }
-
-      &:nth-child(3), &:nth-child(6), &:nth-child(9) {
-        background: darken($bg, 4*2%)
-      }
-
-      &:nth-child(4), &:nth-child(7), &:nth-child(10) {
-        background: darken($bg, 4*3%)
-      }
-
-      &:nth-child(8), &:nth-child(11), &:nth-child(13) {
-        background: darken($bg, 4*4%)
-      }
-
-      &:nth-child(14) {
-        background: darken($bg, 4*5%)
+      &:active {
+        background-color: rgb(225, 225, 225);
       }
 
       &:nth-child(12) {
-        background: darken($bg, 4*6%)
+        background: rgb(250, 217, 86)
       }
+    }
+
+    > button::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 400%;
+      height: 400%;
+      box-sizing: border-box;
+      border-left: 1px solid rgb(201, 201, 201);
+      border-top: 1px solid rgb(201, 201, 201);
+      border-right: 1px solid rgb(201, 201, 201);
+      transform-origin: 0 0;
+      transform: scale(0.25);
     }
   }
 }

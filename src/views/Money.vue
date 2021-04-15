@@ -1,12 +1,12 @@
 <template>
   <Layout class-prefix="layout">
-    <NumberPad @update:value="onUpdateAmount" @submit="saveRecord"/>
+    <NumberPad :value.sync="record.amount" @submit="saveRecord"/>
     <Tabs :data-source="recordTypeList"
           :value.sync="record.type"/>
     <div class="notes">
       <FormItem field-name="备注" placeholder="在这里输入备注" :value.sync="record.notes"/>
     </div>
-    <Tags @update:value="record.tag = $event"/>
+    <Tags @update:value="record.tags = $event"/>
   </Layout>
 </template>
 <script lang="ts">
@@ -41,23 +41,19 @@ export default class Money extends Vue {
     this.$store.commit('fetchRecords');
   }
 
-  onUpdateNotes(value: string): void {
-    this.record.notes = value;
-  }
-
-  onUpdateAmount(value: string): void {
-    this.record.amount = parseFloat(value);
-  }
-
-  saveRecord(): void {
+  saveRecord() {
     if (this.record.tags.length === 0 || !this.record.tags) {
       return window.alert('请至少选择一个标签');
     }
-    this.$store.commit('createRecord', this.record);
+    if (this.record.amount === 0 || !this.record.amount) {
+      return window.alert('什么都没写呀，请输入金额后保存');
+    }
     if (this.$store.state.createRecordError === null) {
       window.alert('已保存');
-      this.record.notes = '';
     }
+    this.$store.commit('createRecord', this.record);
+    this.record.notes = '';
+    this.record.amount = 0;
   }
 }
 </script>

@@ -1,7 +1,7 @@
 <template>
   <Layout>
     <Tabs :data-source="recordTypeList" :value.sync="type" class-prefix="type"/>
-    <ol v-if="groupedList.length>0">
+    <ol v-if="groupedList.length>0" class="amountList">
       <li v-for="(group,index) in groupedList" :key="index">
         <h3 class="title">{{ beautify(group.title) }}<span>￥{{ group.total }}</span></h3>
         <ol class="record">
@@ -14,7 +14,8 @@
       </li>
     </ol>
     <div v-else class="noResult">
-      目前没有相关记录
+      <p>目前没有相关记录,快去记一笔吧~</p>
+      <Icon name="text"/>
     </div>
   </Layout>
 </template>
@@ -59,7 +60,6 @@ export default class Statistics extends Vue {
 
   get groupedList() {
     const {recordList} = this;
-
     const newList = clone(recordList)
         .filter(r => r.type === this.type)
         .sort((a, b) => dayjs(b.createdAt).valueOf() - dayjs(a.createdAt).valueOf());
@@ -93,9 +93,20 @@ export default class Statistics extends Vue {
 </script>
 
 <style lang="scss" scoped>
+@import "~@/assets/styles/helper.scss";
+.amountList{
+  overflow-y: auto;
+  max-height: 81vh;
+}
 .noResult{
-  padding: 16px;
+  padding: 48px 16px 16px 16px;
   text-align: center;
+  .icon{
+    margin-top: 32px;
+    color: #333333;
+    width: 72px;
+    height: 72px;
+  }
 }
 %item {
   padding: 8px 16px;
@@ -130,10 +141,10 @@ export default class Statistics extends Vue {
 
 ::v-deep {
   .type-tabs-item {
-    background: #c4c4c4;
+    background: white;
 
     &.selected {
-      background: white;
+      background: $color-highlight;
 
       &::after {
         display: none;
