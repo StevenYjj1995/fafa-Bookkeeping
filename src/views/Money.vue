@@ -43,7 +43,7 @@ export default class Money extends Vue {
 
   saveRecord() {
     if (this.record.tags.length === 0 || !this.record.tags) {
-      return window.alert('请至少选择一个标签');
+      return window.alert('请选择标签');
     }
     if (this.record.amount === 0 || !this.record.amount) {
       return window.alert('什么都没写呀，请输入金额后保存');
